@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber';
 import { PerformanceMonitor, AdaptiveDpr } from '@react-three/drei';
 import { useReducedMotion } from '@/lib/hooks/use-reduced-motion';
 import { useDevicePerformance } from '@/lib/hooks/use-device-performance';
+import { useIsMobile } from '@/lib/hooks/use-media-query';
 import { cn } from '@/lib/utils';
 
 interface CanvasWrapperProps {
@@ -21,16 +22,24 @@ export function CanvasWrapper({
 }: CanvasWrapperProps) {
   const reducedMotion = useReducedMotion();
   const performance = useDevicePerformance();
+  const isMobile = useIsMobile();
 
-  if (reducedMotion) return null;
+  // Skip 3D on mobile (too heavy, saves battery, better UX)
+  // or when user prefers reduced motion
+  if (reducedMotion || isMobile) return null;
 
-  const dpr: [number, number] = performance.tier === 'low' ? [0.5, 0.8] : performance.tier === 'medium' ? [0.8, 1.2] : [1, 1.5];
+  const dpr: [number, number] =
+    performance.tier === 'low'
+      ? [0.5, 0.8]
+      : performance.tier === 'medium'
+      ? [0.8, 1.2]
+      : [1, 1.5];
 
   return (
     <div className={cn('three-canvas-container', className)}>
       <Canvas
         dpr={dpr}
-        frameloop={reducedMotion ? 'never' : frameloop}
+        frameloop={frameloop}
         camera={camera}
         gl={{
           antialias: performance.tier !== 'low',
@@ -39,10 +48,7 @@ export function CanvasWrapper({
         }}
       >
         <AdaptiveDpr pixelated />
-        <PerformanceMonitor
-          onDecline={() => {}}
-          onIncline={() => {}}
-        />
+        <PerformanceMonitor onDecline={() => {}} onIncline={() => {}} />
         <Suspense fallback={null}>{children}</Suspense>
       </Canvas>
     </div>

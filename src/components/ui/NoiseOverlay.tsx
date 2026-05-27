@@ -1,45 +1,19 @@
 'use client';
-import { useEffect, useRef } from 'react';
 
+// CSS-based static noise — zero CPU cost, same visual effect
+// The canvas approach was writing 2M+ pixels every frame causing massive jitter
 export function NoiseOverlay() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animId: number;
-    let frame = 0;
-
-    const draw = () => {
-      frame++;
-      if (frame % 3 !== 0) { animId = requestAnimationFrame(draw); return; }
-      const w = canvas.width = window.innerWidth;
-      const h = canvas.height = window.innerHeight;
-      const imageData = ctx.createImageData(w, h);
-      const data = imageData.data;
-      for (let i = 0; i < data.length; i += 4) {
-        const noise = Math.random() * 255;
-        data[i] = noise;
-        data[i + 1] = noise;
-        data[i + 2] = noise;
-        data[i + 3] = 12;
-      }
-      ctx.putImageData(imageData, 0, 0);
-      animId = requestAnimationFrame(draw);
-    };
-
-    draw();
-    return () => cancelAnimationFrame(animId);
-  }, []);
-
   return (
-    <canvas
-      ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-[9998] opacity-40 mix-blend-overlay"
+    <div
       aria-hidden
+      className="pointer-events-none fixed inset-0 z-[9998]"
+      style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+        backgroundRepeat: 'repeat',
+        backgroundSize: '256px 256px',
+        opacity: 0.035,
+        mixBlendMode: 'overlay',
+      }}
     />
   );
 }

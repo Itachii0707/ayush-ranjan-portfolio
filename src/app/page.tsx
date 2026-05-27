@@ -78,8 +78,10 @@ export default function HomePage() {
     <main className="bg-obsidian-900 min-h-screen">
       {/* ─── Hero ─────────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Three.js scene */}
+        {/* Three.js scene — hidden on mobile via CanvasWrapper internally */}
         <div className="fixed inset-0 z-0">
+          {/* Mobile gradient fallback (visible on mobile where WebGL is disabled) */}
+          <div className="hero-mobile-bg absolute inset-0 md:opacity-0" />
           <HeroScene />
         </div>
 

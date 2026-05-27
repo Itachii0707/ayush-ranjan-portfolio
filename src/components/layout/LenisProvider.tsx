@@ -1,28 +1,40 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import Lenis from 'lenis';
 
-export function LenisProvider({ children }: { children: React.ReactNode }) {
-  const lenisRef = useRef<Lenis | null>(null);
+// Sync Lenis RAF with the browser's own requestAnimationFrame pipeline
+// Previously it ran its own rAF loop separate from R3F, causing double-frame jitter
+let lenisInstance: Lenis | null = null;
 
+export function getLenis() {
+  return lenisInstance;
+}
+
+export function LenisProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.0,
+      easing: (t) => 1 - Math.pow(1 - t, 4), // ease-out-quart — silky smooth
       smoothWheel: true,
+      touchMultiplier: 2,
+      infinite: false,
     });
 
-    lenisRef.current = lenis;
+    lenisInstance = lenis;
+
+    let rafId: number;
 
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
+      lenisInstance = null;
     };
   }, []);
 

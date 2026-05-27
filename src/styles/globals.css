@@ -315,3 +315,55 @@
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
+
+/* ─── Mobile hero gradient (shown when WebGL is off) ──────────────────── */
+.hero-mobile-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 30%, rgba(0, 229, 255, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 60% at 20% 70%, rgba(124, 58, 237, 0.1) 0%, transparent 60%),
+    #030305;
+}
+
+/* ─── GPU-composited layers (no paint jitter) ──────────────────────────── */
+.will-change-transform { will-change: transform; }
+.will-change-opacity   { will-change: opacity; }
+
+/* ─── Touch / Mobile ───────────────────────────────────────────────────── */
+@media (hover: none) {
+  /* Hide custom cursor on touch screens */
+  [data-cursor] { display: none !important; }
+
+  /* Restore system cursor */
+  body { cursor: auto !important; }
+
+  /* Disable pointer-events on noise overlay on mobile */
+  .noise-overlay { display: none; }
+}
+
+@media (max-width: 640px) {
+  /* Improve touch tap targets */
+  a, button { min-height: 44px; }
+
+  /* Better text scaling on small screens */
+  html { font-size: 15px; }
+
+  /* Prevent overflow on mobile */
+  .container { padding-left: 1rem; padding-right: 1rem; }
+}
+
+@media (max-width: 768px) {
+  /* Floating orbs — reduce size on mobile */
+  .floating-orb { opacity: 0.4 !important; }
+}
+
+/* ─── Smooth GPU transitions ───────────────────────────────────────────── */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Prevent layout shift from scrollbar appearing */
+html {
+  scrollbar-gutter: stable;
+}
+
