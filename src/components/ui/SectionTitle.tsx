@@ -6,43 +6,56 @@ interface SectionTitleProps {
   label?: string;
   title: string;
   subtitle?: string;
+  align?: 'left' | 'center' | 'right';
   className?: string;
-  align?: 'left' | 'center';
 }
 
-export function SectionTitle({
-  label,
-  title,
-  subtitle,
-  className,
-  align = 'left',
-}: SectionTitleProps) {
+export function SectionTitle({ label, title, subtitle, align = 'center', className }: SectionTitleProps) {
+  const alignClass = align === 'left' ? 'text-left items-start' : align === 'right' ? 'text-right items-end' : 'text-center items-center';
+
+  const words = title.split(' ');
+
   return (
     <motion.div
-      className={cn(
-        'mb-16',
-        align === 'center' && 'text-center',
-        className
-      )}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      className={cn('flex flex-col gap-4', alignClass, className)}
     >
       {label && (
-        <div className="flex items-center gap-3 mb-4" style={{ justifyContent: align === 'center' ? 'center' : 'flex-start' }}>
-          <div className="h-px w-8 bg-cyan-DEFAULT" />
-          <span className="font-mono text-xs text-cyan-DEFAULT uppercase tracking-widest">{label}</span>
-          <div className="h-px w-8 bg-cyan-DEFAULT" />
-        </div>
+        <motion.span
+          variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0, transition: { duration: 0.5 } } }}
+          className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.25em] uppercase text-cyan-DEFAULT"
+        >
+          <span className="w-8 h-px bg-cyan-DEFAULT/60" />
+          {label}
+          <span className="w-8 h-px bg-cyan-DEFAULT/60" />
+        </motion.span>
       )}
-      <h2 className="font-grotesk font-bold text-4xl md:text-5xl text-silver-bright mb-4">
-        {title}
-      </h2>
+
+      <div className={cn('flex flex-wrap gap-x-[0.3em]', alignClass)}>
+        {words.map((word, wi) => (
+          <span key={wi} className="overflow-hidden inline-block">
+            <motion.span
+              className="inline-block font-grotesk text-3xl md:text-4xl lg:text-5xl font-black text-silver-bright leading-tight"
+              variants={{
+                hidden: { y: '110%' },
+                visible: { y: '0%', transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: wi * 0.07 } },
+              }}
+            >
+              {word}
+            </motion.span>
+          </span>
+        ))}
+      </div>
+
       {subtitle && (
-        <p className="text-silver-mid text-lg max-w-2xl" style={{ margin: align === 'center' ? '0 auto' : undefined }}>
+        <motion.p
+          variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.3 } } }}
+          className="text-silver-mid text-base md:text-lg max-w-2xl leading-relaxed"
+        >
           {subtitle}
-        </p>
+        </motion.p>
       )}
     </motion.div>
   );

@@ -7,6 +7,8 @@ import { CustomCursor } from '@/components/layout/CustomCursor';
 import { LoadingScreen } from '@/components/layout/LoadingScreen';
 import { CommandPalette } from '@/components/layout/CommandPalette';
 import { LenisProvider } from '@/components/layout/LenisProvider';
+import { NoiseOverlay } from '@/components/ui/NoiseOverlay';
+import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 import { Toaster } from 'react-hot-toast';
 
 const spaceGrotesk = Space_Grotesk({
@@ -107,6 +109,8 @@ export default function RootLayout({
       <body className="bg-obsidian-900 text-silver-bright font-inter antialiased overflow-x-hidden">
         <LenisProvider>
           <LoadingScreen />
+          <NoiseOverlay />
+          <FloatingOrbs />
           <CustomCursor />
           <CommandPalette />
           <Navbar />
