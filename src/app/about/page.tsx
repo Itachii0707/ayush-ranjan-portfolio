@@ -6,6 +6,8 @@ import { SectionTitle } from '@/components/ui/SectionTitle';
 import { GlowCard } from '@/components/ui/GlowCard';
 import { SkillBadge } from '@/components/ui/SkillBadge';
 import { AboutScene } from '@/components/three/AboutScene';
+import { AnimatedSkillCard } from '@/components/ui/AnimatedSkillCard';
+import { InteractiveTerminal } from '@/components/ui/InteractiveTerminal';
 
 export const metadata: Metadata = {
   title: 'About | Ayush Ranjan',
@@ -88,6 +90,18 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ─── Interactive Terminal ─────────────────────────────────── */}
+      <section className="relative z-10 py-16 container mx-auto px-6">
+        <SectionTitle
+          label="Shell Workspace"
+          title="Interactive Terminal"
+          subtitle="Explore my tech profile through a simulated command line interface."
+        />
+        <div className="mt-12">
+          <InteractiveTerminal />
+        </div>
+      </section>
+
       {/* ─── Skills ───────────────────────────────────────────────── */}
       <section className="relative z-10 py-24 bg-gradient-to-b from-transparent via-obsidian-900/50 to-transparent">
         <div className="container mx-auto px-6">
@@ -98,31 +112,11 @@ export default function AboutPage() {
           />
           <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {skillCategories.map((category, ci) => (
-              <GlowCard
+              <AnimatedSkillCard
                 key={category.id}
-                className="p-6 space-y-5"
-                glowColor={ci % 2 === 0 ? 'cyan' : 'violet'}
-              >
-                <h3 className="font-grotesk font-bold text-silver-bright text-lg">
-                  {category.label}
-                </h3>
-                <div className="space-y-3">
-                  {category.skills.map((skill) => (
-                    <div key={skill.name} className="space-y-1.5">
-                      <div className="flex items-center justify-between">
-                        <span className="text-silver-mid text-sm">{skill.name}</span>
-                        <span className="font-mono text-xs text-silver-dim">{skill.level}%</span>
-                      </div>
-                      <div className="w-full h-1.5 bg-silver-dim/10 rounded-full overflow-hidden">
-                        <div
-                          className="h-full rounded-full bg-gradient-to-r from-cyan-DEFAULT to-violet-light"
-                          style={{ width: `${skill.level}%` }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </GlowCard>
+                category={category}
+                ci={ci}
+              />
             ))}
           </div>
         </div>

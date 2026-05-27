@@ -80,3 +80,68 @@ export const achievements = [
     icon: '⚡',
   },
 ];
+
+export interface TimelineEvent {
+  id: string;
+  year: string;
+  month: string;
+  title: string;
+  organization: string;
+  description: string;
+  type: 'certification' | 'hackathon' | 'milestone';
+  icon: string;
+  link?: string;
+}
+
+export const timelineEvents: TimelineEvent[] = [
+  {
+    id: 'nvidia-dl',
+    year: '2024',
+    month: 'Dec',
+    title: 'Fundamentals of Deep Learning Certification',
+    organization: 'NVIDIA Deep Learning Institute',
+    description: 'Trained and deployed deep learning models for computer vision and sequential data, optimizing networks for GPU acceleration.',
+    type: 'certification',
+    icon: '🧠',
+  },
+  {
+    id: 'hackathon-win',
+    year: '2024',
+    month: 'Oct',
+    title: '1st Place Winner - AI Hackathon',
+    organization: 'MSRUAS Technical Club',
+    description: 'Designed and engineered a contactless gesture-controlled computer vision controller for accessibility, achieving 98% accuracy.',
+    type: 'hackathon',
+    icon: '🏆',
+  },
+  {
+    id: 'tf-dev',
+    year: '2024',
+    month: 'Jul',
+    title: 'TensorFlow Developer Specialization',
+    organization: 'DeepLearning.AI',
+    description: 'Acquired master-level training in building ML models, convolutional networks, natural language processing, and sequence forecasting.',
+    type: 'certification',
+    icon: '🤖',
+  },
+  {
+    id: 'cv-pipeline',
+    year: '2024',
+    month: 'Mar',
+    title: 'Open Source CV Contribution',
+    organization: 'GitHub Community',
+    description: 'Contributed highly optimized custom OpenCV object tracking pipelines to a popular public robotics repository, reducing CPU overhead by 22%.',
+    type: 'milestone',
+    icon: '🔧',
+  },
+  {
+    id: 'research-assistant',
+    year: '2023',
+    month: 'Nov',
+    title: 'University CV Lab Assistant',
+    organization: 'MSRUAS Computer Vision Group',
+    description: 'Assisted in training custom YOLOv8 models for real-time traffic detection and flow analysis inside simulated smart-city intersections.',
+    type: 'milestone',
+    icon: '👁️',
+  }
+];

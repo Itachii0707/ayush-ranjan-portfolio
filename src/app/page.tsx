@@ -144,29 +144,34 @@ export default function HomePage() {
             transition={{ duration: 0.7, delay: 4.25 }}
             className="flex flex-wrap items-center justify-center gap-4"
           >
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 bg-cyan-DEFAULT hover:bg-cyan-DEFAULT/90 text-obsidian-900 font-semibold font-grotesk px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)]"
-            >
-              View Projects
-              <ArrowRight size={18} />
-            </Link>
+            <MagneticButton strength={0.2}>
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2 bg-cyan-DEFAULT hover:bg-cyan-DEFAULT/90 text-obsidian-900 font-semibold font-grotesk px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)]"
+              >
+                View Projects
+                <ArrowRight size={18} />
+              </Link>
+            </MagneticButton>
 
             <MagneticButton
               onClick={() => (window.location.href = '/contact')}
               className="inline-flex items-center gap-2 border border-violet-light text-violet-light hover:bg-violet-light/10 font-semibold font-grotesk px-8 py-4 rounded-xl transition-all duration-300"
+              strength={0.2}
             >
               <Mail size={18} />
               Hire Me
             </MagneticButton>
 
-            <Link
-              href="/resume"
-              className="inline-flex items-center gap-2 glass border border-silver-dim/30 text-silver-bright hover:border-silver-mid font-semibold font-grotesk px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105"
-            >
-              <Download size={18} />
-              Resume
-            </Link>
+            <MagneticButton strength={0.2}>
+              <Link
+                href="/resume"
+                className="inline-flex items-center gap-2 glass border border-silver-dim/30 text-silver-bright hover:border-silver-mid font-semibold font-grotesk px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105"
+              >
+                <Download size={18} />
+                Resume
+              </Link>
+            </MagneticButton>
           </motion.div>
         </div>
 

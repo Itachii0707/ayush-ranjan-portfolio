@@ -6,7 +6,19 @@ export async function POST(req: NextRequest) {
       try {
         const { createClient } = await import('@supabase/supabase-js');
         const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
-        await supabase.from('resume_downloads').insert({ ip_address: req.headers.get('x-forwarded-for'), user_agent: req.headers.get('user-agent'), referrer: req.headers.get('referer') });
+        
+        const country = req.headers.get('x-vercel-ip-country') || 'Unknown';
+        const region = req.headers.get('x-vercel-ip-country-region') || 'Unknown';
+        const city = req.headers.get('x-vercel-ip-city') || 'Unknown';
+        
+        await supabase.from('resume_downloads').insert({
+          ip_address: req.headers.get('x-forwarded-for'),
+          user_agent: req.headers.get('user-agent'),
+          referrer: req.headers.get('referer'),
+          country,
+          region,
+          city
+        });
       } catch { /* non-critical */ }
     }
     if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {

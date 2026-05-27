@@ -9,6 +9,7 @@ import { CommandPalette } from '@/components/layout/CommandPalette';
 import { LenisProvider } from '@/components/layout/LenisProvider';
 import { NoiseOverlay } from '@/components/ui/NoiseOverlay';
 import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
+import { ThemeProvider } from '@/components/layout/ThemeProvider';
 import { Toaster } from 'react-hot-toast';
 
 const spaceGrotesk = Space_Grotesk({
@@ -107,41 +108,43 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="bg-obsidian-900 text-silver-bright font-inter antialiased overflow-x-hidden">
-        <LenisProvider>
-          <LoadingScreen />
-          <NoiseOverlay />
-          <FloatingOrbs />
-          <CustomCursor />
-          <CommandPalette />
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <Toaster
-            position="bottom-right"
-            toastOptions={{
-              style: {
-                background: 'rgba(13, 13, 26, 0.95)',
-                color: '#E8E8F0',
-                border: '1px solid rgba(0, 229, 255, 0.2)',
-                backdropFilter: 'blur(12px)',
-                fontFamily: 'var(--font-inter)',
-                fontSize: '14px',
-              },
-              success: {
-                iconTheme: {
-                  primary: '#00E5FF',
-                  secondary: '#030305',
+        <ThemeProvider>
+          <LenisProvider>
+            <LoadingScreen />
+            <NoiseOverlay />
+            <FloatingOrbs />
+            <CustomCursor />
+            <CommandPalette />
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+            <Toaster
+              position="bottom-right"
+              toastOptions={{
+                style: {
+                  background: 'rgba(13, 13, 26, 0.95)',
+                  color: '#E8E8F0',
+                  border: '1px solid rgba(0, 229, 255, 0.2)',
+                  backdropFilter: 'blur(12px)',
+                  fontFamily: 'var(--font-inter)',
+                  fontSize: '14px',
                 },
-              },
-              error: {
-                iconTheme: {
-                  primary: '#ef4444',
-                  secondary: '#030305',
+                success: {
+                  iconTheme: {
+                    primary: '#00E5FF',
+                    secondary: '#030305',
+                  },
                 },
-              },
-            }}
-          />
-        </LenisProvider>
+                error: {
+                  iconTheme: {
+                    primary: '#ef4444',
+                    secondary: '#030305',
+                  },
+                },
+              }}
+            />
+          </LenisProvider>
+        </ThemeProvider>
 
         {/* Structured Data */}
         <script

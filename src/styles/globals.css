@@ -2,39 +2,99 @@
 
 @import "tailwindcss";
 
+:root {
+  --bg-obsidian-900: #030305;
+  --bg-obsidian-800: #07070F;
+  --bg-obsidian-700: #0D0D1A;
+  --bg-obsidian-600: #111122;
+
+  --bg-graphite-500: #1A1A2E;
+  --bg-graphite-400: #252538;
+  --bg-graphite-300: #2E2E45;
+  --bg-graphite-200: #3A3A55;
+
+  --cyan-default: #00E5FF;
+  --cyan-glow: #00E5FF40;
+  --cyan-muted: #00B8D4;
+  --cyan-dark: #007EA8;
+
+  --violet-glow: #7C3AED40;
+  --violet-bright: #A855F7;
+  --violet-muted: #6D28D9;
+  --violet-light: #C084FC;
+
+  --text-silver-bright: #E8E8F0;
+  --text-silver-mid: #A0A0B8;
+  --text-silver-dim: #606080;
+
+  --border-color: rgba(255, 255, 255, 0.06);
+  --glass-bg: rgba(7, 7, 15, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.06);
+}
+
+.light {
+  --bg-obsidian-900: #FFFFFF;
+  --bg-obsidian-800: #F8F9FA;
+  --bg-obsidian-700: #F1F3F5;
+  --bg-obsidian-600: #E9ECEF;
+
+  --bg-graphite-500: #E9ECEF;
+  --bg-graphite-400: #DEE2E6;
+  --bg-graphite-300: #CED4DA;
+  --bg-graphite-200: #ADB5BD;
+
+  --cyan-default: #00838F;
+  --cyan-glow: rgba(0, 131, 143, 0.15);
+  --cyan-muted: #00acc1;
+  --cyan-dark: #006064;
+
+  --violet-glow: rgba(106, 27, 154, 0.15);
+  --violet-bright: #8E24AA;
+  --violet-muted: #6A1B9A;
+  --violet-light: #8E24AA;
+
+  --text-silver-bright: #121214;
+  --text-silver-mid: #495057;
+  --text-silver-dim: #868E96;
+
+  --border-color: rgba(0, 0, 0, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(0, 0, 0, 0.08);
+}
+
 @theme {
   /* Colors */
-  --color-background: hsl(240 20% 2%);
-  --color-foreground: hsl(240 10% 92%);
+  --color-background: var(--bg-obsidian-900);
+  --color-foreground: var(--text-silver-bright);
 
   /* Obsidian palette */
-  --color-obsidian-900: #030305;
-  --color-obsidian-800: #07070F;
-  --color-obsidian-700: #0D0D1A;
-  --color-obsidian-600: #111122;
+  --color-obsidian-900: var(--bg-obsidian-900);
+  --color-obsidian-800: var(--bg-obsidian-800);
+  --color-obsidian-700: var(--bg-obsidian-700);
+  --color-obsidian-600: var(--bg-obsidian-600);
 
   /* Graphite */
-  --color-graphite-500: #1A1A2E;
-  --color-graphite-400: #252538;
-  --color-graphite-300: #2E2E45;
-  --color-graphite-200: #3A3A55;
+  --color-graphite-500: var(--bg-graphite-500);
+  --color-graphite-400: var(--bg-graphite-400);
+  --color-graphite-300: var(--bg-graphite-300);
+  --color-graphite-200: var(--bg-graphite-200);
 
   /* Cyan */
-  --color-cyan-DEFAULT: #00E5FF;
-  --color-cyan-glow: #00E5FF40;
-  --color-cyan-muted: #00B8D4;
-  --color-cyan-dark: #007EA8;
+  --color-cyan-DEFAULT: var(--cyan-default);
+  --color-cyan-glow: var(--cyan-glow);
+  --color-cyan-muted: var(--cyan-muted);
+  --color-cyan-dark: var(--cyan-dark);
 
   /* Violet */
-  --color-violet-glow: #7C3AED;
-  --color-violet-bright: #A855F7;
-  --color-violet-muted: #6D28D9;
-  --color-violet-light: #C084FC;
+  --color-violet-glow: var(--violet-glow);
+  --color-violet-bright: var(--violet-bright);
+  --color-violet-muted: var(--violet-muted);
+  --color-violet-light: var(--violet-light);
 
   /* Silver */
-  --color-silver-bright: #E8E8F0;
-  --color-silver-mid: #A0A0B8;
-  --color-silver-dim: #606080;
+  --color-silver-bright: var(--text-silver-bright);
+  --color-silver-mid: var(--text-silver-mid);
+  --color-silver-dim: var(--text-silver-dim);
 
   /* Fonts */
   --font-grotesk: var(--font-space-grotesk), sans-serif;
@@ -80,7 +140,7 @@
 @layer base {
   * {
     box-sizing: border-box;
-    border-color: rgba(255,255,255,0.06);
+    border-color: var(--border-color);
   }
 
   html {
@@ -91,10 +151,11 @@
   }
 
   body {
-    background-color: #030305;
-    color: #E8E8F0;
+    background-color: var(--bg-obsidian-900);
+    color: var(--text-silver-bright);
     overflow-x: hidden;
     cursor: none;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
 
   /* Custom scrollbar */

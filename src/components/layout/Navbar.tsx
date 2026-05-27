@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Terminal, Cpu } from 'lucide-react';
 import { navItems } from '@/config/navigation';
 import { cn } from '@/lib/utils';
+import { ThemeToggle } from '@/components/layout/ThemeToggle';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -68,6 +69,7 @@ export function Navbar() {
 
         {/* Right actions */}
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <Link
             href="/resume"
             className="hidden md:flex items-center gap-2 px-4 py-2 rounded-lg border border-cyan-DEFAULT/30 text-cyan-DEFAULT text-sm font-medium hover:bg-cyan-DEFAULT/10 hover:border-cyan-DEFAULT/60 transition-all"

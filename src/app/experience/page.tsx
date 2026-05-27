@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import { education, achievements } from '@/config/experience';
+import { education, achievements, timelineEvents } from '@/config/experience';
 import { skillCategories } from '@/config/skills';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { GlowCard } from '@/components/ui/GlowCard';
 import { SkillBadge } from '@/components/ui/SkillBadge';
 import { ExperienceScene } from '@/components/three/ExperienceScene';
+import { Timeline } from '@/components/ui/Timeline';
 
 export const metadata: Metadata = {
   title: 'Experience | Ayush Ranjan',
@@ -89,24 +90,16 @@ export default function ExperiencePage() {
         </div>
       </section>
 
-      {/* ─── Achievements ─────────────────────────────────────────── */}
+      {/* ─── Timeline ──────────────────────────────────────────────── */}
       <section className="relative z-10 py-24 bg-gradient-to-b from-transparent via-obsidian-900/50 to-transparent">
         <div className="container mx-auto px-6">
           <SectionTitle
-            label="Achievements"
-            title="Key Strengths"
-            subtitle="Highlights from competitions, contributions, and community impact."
+            label="Milestones"
+            title="Certifications & Achievements"
+            subtitle="An animated timeline showcasing key technical credentials, hackathons, and milestones."
           />
-          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {achievements.map((achievement, i) => (
-              <GlowCard key={i} className="p-6 text-center space-y-4" glowColor={i % 2 === 0 ? 'cyan' : 'violet'}>
-                <span className="text-4xl block">{achievement.icon}</span>
-                <h3 className="font-grotesk font-bold text-silver-bright text-lg leading-tight">
-                  {achievement.title}
-                </h3>
-                <p className="text-silver-dim text-sm leading-relaxed">{achievement.description}</p>
-              </GlowCard>
-            ))}
+          <div className="mt-12">
+            <Timeline events={timelineEvents} />
           </div>
         </div>
       </section>
