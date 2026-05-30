@@ -1,79 +1,48 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Download, ChevronDown, MapPin, Mail } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import dynamic from 'next/dynamic';
 import { profile } from '@/config/profile';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { CounterCard } from '@/components/ui/CounterCard';
-import { GlowCard } from '@/components/ui/GlowCard';
 import { MagneticButton } from '@/components/ui/MagneticButton';
-import toast from 'react-hot-toast';
+import { StackingCards } from '@/components/ui/StackingCards';
 
 const HeroScene = dynamic(
   () => import('@/components/three/scenes/HeroScene').then((m) => m.HeroScene),
   { ssr: false, loading: () => null }
 );
 
-gsap.registerPlugin(ScrollTrigger);
-
 const storyItems = [
   {
     number: '01',
     title: 'The Spark',
     body: 'It started with curiosity — tinkering with HTML pages at age 12, watching static text transform into something interactive. That first moment of seeing code come alive on screen lit a fire that never went out.',
+    accent: 'cyan' as const,
   },
   {
     number: '02',
     title: 'Deep Dive',
     body: 'From frontend experiments I dove deep into algorithms, distributed systems, and machine learning. Every new domain became a puzzle to dissect, understand from first principles, and rebuild better.',
+    accent: 'violet' as const,
   },
   {
     number: '03',
     title: 'Building Systems',
     body: 'Theory met practice in real-world engineering — designing scalable APIs, optimizing database queries, architecting microservices. I learned that the best code is invisible: reliable, fast, and maintainable.',
+    accent: 'cyan' as const,
   },
   {
     number: '04',
     title: 'The Mission',
     body: 'Today I build products that matter. I bring together engineering rigor, design sensibility, and product thinking to create software that solves real problems for real people at real scale.',
+    accent: 'violet' as const,
   },
 ];
 
 export default function HomePage() {
-  const storyRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>('.story-card');
-      cards.forEach((card, i) => {
-        gsap.fromTo(
-          card,
-          { opacity: 0, y: 60, scale: 0.96 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.8,
-            ease: 'power3.out',
-            delay: i * 0.1,
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        );
-      });
-    }, storyRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <main className="bg-obsidian-900 min-h-screen">
       {/* ─── Hero ─────────────────────────────────────────────────── */}
@@ -212,51 +181,74 @@ export default function HomePage() {
       </section>
 
       {/* ─── Story ────────────────────────────────────────────────── */}
-      <section ref={storyRef} className="relative z-10 py-24 container mx-auto px-6">
+      <section className="relative z-10 py-24 container mx-auto px-6">
         <SectionTitle
           label="My Journey"
           title="The Story So Far"
           subtitle="Four chapters that shaped how I think, build, and lead."
         />
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-          {storyItems.map((item) => (
-            <GlowCard key={item.number} className="story-card opacity-0 p-8 space-y-4">
-              <span className="font-mono text-5xl font-black text-cyan-DEFAULT/20 leading-none select-none">
-                {item.number}
-              </span>
-              <h3 className="font-grotesk text-xl font-bold text-silver-bright">{item.title}</h3>
-              <p className="text-silver-mid leading-relaxed">{item.body}</p>
-            </GlowCard>
-          ))}
+        <div className="mt-16">
+          <StackingCards cards={storyItems} />
         </div>
       </section>
 
       {/* ─── Final CTA ────────────────────────────────────────────── */}
       <section className="relative z-10 py-24 container mx-auto px-6">
-        <div className="glass-strong rounded-3xl p-12 md:p-20 text-center max-w-4xl mx-auto border border-silver-dim/10">
-          <h2 className="font-grotesk text-4xl md:text-5xl font-black text-silver-bright mb-6">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="glass-strong rounded-3xl p-12 md:p-20 text-center max-w-4xl mx-auto border border-silver-dim/10 relative overflow-hidden"
+        >
+          {/* Decorative orb */}
+          <div className="pointer-events-none absolute -top-16 -right-16 w-64 h-64 rounded-full bg-gradient-to-br from-cyan-DEFAULT/10 to-violet-light/10 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-16 -left-16 w-64 h-64 rounded-full bg-gradient-to-tr from-violet-light/10 to-cyan-DEFAULT/10 blur-3xl" />
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="font-grotesk text-4xl md:text-5xl font-black text-silver-bright mb-6 relative z-10"
+          >
             Ready to Build{' '}
             <span className="gradient-text">Something Great?</span>
-          </h2>
-          <p className="text-silver-mid text-lg mb-10 max-w-xl mx-auto">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-silver-mid text-lg mb-10 max-w-xl mx-auto relative z-10"
+          >
             Whether you have a project in mind or just want to explore possibilities, I&apos;m always open to a conversation.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 bg-cyan-DEFAULT hover:bg-cyan-DEFAULT/90 text-obsidian-900 font-bold font-grotesk px-10 py-4 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)]"
-            >
-              Get in Touch
-              <ArrowRight size={18} />
-            </Link>
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-2 glass border border-silver-dim/30 text-silver-bright hover:border-silver-mid font-semibold font-grotesk px-10 py-4 rounded-xl transition-all duration-300"
-            >
-              Learn More About Me
-            </Link>
-          </div>
-        </div>
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-wrap justify-center gap-4 relative z-10"
+          >
+            <MagneticButton strength={0.2}>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 bg-cyan-DEFAULT hover:bg-cyan-DEFAULT/90 text-obsidian-900 font-bold font-grotesk px-10 py-4 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)]"
+              >
+                Get in Touch
+                <ArrowRight size={18} />
+              </Link>
+            </MagneticButton>
+            <MagneticButton strength={0.2}>
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2 glass border border-silver-dim/30 text-silver-bright hover:border-silver-mid font-semibold font-grotesk px-10 py-4 rounded-xl transition-all duration-300"
+              >
+                Learn More About Me
+              </Link>
+            </MagneticButton>
+          </motion.div>
+        </motion.div>
       </section>
     </main>
   );

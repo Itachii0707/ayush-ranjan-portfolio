@@ -39,7 +39,7 @@ export function MagneticButton({
       onMouseLeave={handleMouseLeave}
       animate={{ x: position.x, y: position.y }}
       transition={{ type: 'spring', stiffness: 200, damping: 20, mass: 0.5 }}
-      className={cn('inline-flex cursor-none magnetic', className)}
+      className={cn('inline-flex cursor-pointer magnetic', className)}
       onClick={onClick}
     >
       {children}

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { Menu, X, Terminal, Cpu } from 'lucide-react';
 import { navItems } from '@/config/navigation';
 import { cn } from '@/lib/utils';
@@ -12,6 +12,10 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const pathname = usePathname();
+
+  // Scroll progress
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 30 });
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -31,6 +35,15 @@ export function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, delay: 3.5, ease: [0.16, 1, 0.3, 1] }}
     >
+      {/* Neon scroll progress bar */}
+      <motion.div
+        className="absolute top-0 left-0 right-0 h-[2px] origin-left z-[60] pointer-events-none"
+        style={{
+          scaleX,
+          background: 'linear-gradient(90deg, #00E5FF 0%, #A855F7 100%)',
+          boxShadow: '0 0 8px rgba(0,229,255,0.6)',
+        }}
+      />
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">

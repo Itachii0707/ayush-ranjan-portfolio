@@ -3,7 +3,6 @@ import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import '@/styles/globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { CustomCursor } from '@/components/layout/CustomCursor';
 import { LoadingScreen } from '@/components/layout/LoadingScreen';
 import { CommandPalette } from '@/components/layout/CommandPalette';
 import { LenisProvider } from '@/components/layout/LenisProvider';
@@ -11,6 +10,7 @@ import { NoiseOverlay } from '@/components/ui/NoiseOverlay';
 import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 import { ThemeProvider } from '@/components/layout/ThemeProvider';
 import { Toaster } from 'react-hot-toast';
+import { ScrollToTop } from '@/components/ui/ScrollToTop';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -113,9 +113,9 @@ export default function RootLayout({
             <LoadingScreen />
             <NoiseOverlay />
             <FloatingOrbs />
-            <CustomCursor />
             <CommandPalette />
             <Navbar />
+            <ScrollToTop />
             <main>{children}</main>
             <Footer />
             <Toaster
