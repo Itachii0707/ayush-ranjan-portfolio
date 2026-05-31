@@ -12,11 +12,6 @@ import { CounterCard } from '@/components/ui/CounterCard';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { StackingCards } from '@/components/ui/StackingCards';
 
-const HeroScene = dynamic(
-  () => import('@/components/three/scenes/HeroScene').then((m) => m.HeroScene),
-  { ssr: false, loading: () => null }
-);
-
 const storyItems = [
   {
     number: '01',
@@ -85,11 +80,9 @@ export default function HomePage() {
     <main className="bg-obsidian-900 min-h-screen">
       {/* ─── Hero ─────────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 px-6">
-        {/* Three.js scene — hidden on mobile via CanvasWrapper internally */}
+        {/* Mobile gradient fallback (visible on mobile where WebGL is disabled) */}
         <div className="fixed inset-0 z-0">
-          {/* Mobile gradient fallback (visible on mobile where WebGL is disabled) */}
           <div className="hero-mobile-bg absolute inset-0 md:opacity-0" />
-          <HeroScene />
         </div>
 
         {/* Gradient overlays */}

@@ -11,11 +11,6 @@ import { SectionTitle } from '@/components/ui/SectionTitle';
 import { GlowCard } from '@/components/ui/GlowCard';
 import { SkillBadge } from '@/components/ui/SkillBadge';
 
-const ResumeScene = dynamic(
-  () => import('@/components/three/scenes/ResumeScene').then((m) => m.ResumeScene),
-  { ssr: false, loading: () => null }
-);
-
 export default function ResumePage() {
   const [isDownloading, setIsDownloading] = useState(false);
 
@@ -52,7 +47,6 @@ export default function ResumePage() {
       {/* ─── Hero ─────────────────────────────────────────────────── */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden pt-24">
         <div className="absolute inset-0 z-0">
-          <ResumeScene />
         </div>
         <div className="absolute inset-0 z-[1] bg-gradient-to-b from-obsidian-900/50 via-obsidian-900/30 to-obsidian-900 pointer-events-none" />
         <div className="absolute inset-0 z-[1] bg-gradient-to-r from-obsidian-900/60 via-transparent to-obsidian-900/60 pointer-events-none" />

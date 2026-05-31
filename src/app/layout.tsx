@@ -11,6 +11,7 @@ import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 import { ThemeProvider } from '@/components/layout/ThemeProvider';
 import { Toaster } from 'react-hot-toast';
 import { ScrollToTop } from '@/components/ui/ScrollToTop';
+import { GlobalBackground } from '@/components/three/GlobalBackground';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -119,6 +120,7 @@ export default function RootLayout({
           <LenisProvider>
             <LoadingScreen />
             <NoiseOverlay />
+            <GlobalBackground />
             <FloatingOrbs />
             <CommandPalette />
             <Navbar />

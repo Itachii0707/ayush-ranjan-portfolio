@@ -9,34 +9,40 @@ import { profile } from '@/config/profile';
 import toast from 'react-hot-toast';
 import { trackEvent } from '@/lib/posthog';
 
-const ContactScene = dynamic(
-  () => import('@/components/three/scenes/ContactScene').then((m) => m.ContactScene),
-  { ssr: false, loading: () => null }
-);
-
-const BUDGET_OPTIONS = ['Under \u20b950K', '\u20b950K - \u20b9150K', '\u20b9150K - \u20b9500K', '\u20b9500K+', 'Open to discuss'];
+const BUDGET_OPTIONS = ['Under \u20b950K', '\u20b950K - \u20b9150K', '\u20b950K - \u20b9500K', '\u20b9500K+', 'Open to discuss'];
 const TIMELINE_OPTIONS = ['ASAP', '1-2 weeks', '1 month', '2-3 months', 'Flexible'];
 const INQUIRY_TYPES = [
   { id: 'general', label: 'General Inquiry' },
-  { id: 'recruiter', label: 'Recruiter / Hiring' },
-  { id: 'project', label: 'Project Collaboration' },
+  { id: 'project', label: 'Project Work' },
+  { id: 'recruiter', label: 'Recruitment' },
 ];
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '', company: '', budget: '', timeline: '', type: 'general' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '', company: '', budget: '', timeline: '', type: 'general' });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) {
+      toast.error('Please fill in all required fields.');
+      return;
+    }
     setIsSubmitting(true);
     try {
-      const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
-      if (!res.ok) throw new Error('Failed to send');
-      trackEvent('contact_form_submit', { type: formData.type });
-      setIsSuccess(true);
-      toast.success("Message sent! I'll get back to you soon.");
-    } catch {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) {
+        setIsSuccess(true);
+        toast.success('Message sent successfully!');
+        trackEvent('contact_form_submitted', { type: formData.type });
+      } else {
+        throw new Error('Failed to submit form');
+      }
+    } catch (err) {
       toast.error('Failed to send message. Please try emailing directly.');
     } finally {
       setIsSubmitting(false);
@@ -49,7 +55,6 @@ export default function ContactPage() {
   return (
     <div className="relative min-h-screen bg-obsidian-900">
       <section className="relative min-h-[60vh] flex items-end pb-20 overflow-hidden pt-24">
-        <ContactScene />
         <div className="absolute inset-0 bg-gradient-to-b from-obsidian-900/60 via-transparent to-obsidian-900" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
           <div className="inline-flex items-center gap-3 mb-6">

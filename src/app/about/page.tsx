@@ -5,7 +5,6 @@ import { education } from '@/config/experience';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { GlowCard } from '@/components/ui/GlowCard';
 import { SkillBadge } from '@/components/ui/SkillBadge';
-import { AboutScene } from '@/components/three/AboutScene';
 import { AnimatedSkillCard } from '@/components/ui/AnimatedSkillCard';
 import { InteractiveTerminal } from '@/components/ui/InteractiveTerminal';
 
@@ -20,9 +19,6 @@ export default function AboutPage() {
     <main className="bg-obsidian-900 min-h-screen">
       {/* ─── Hero ─────────────────────────────────────────────────── */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden pt-24">
-        <div className="absolute inset-0 z-0">
-          <AboutScene />
-        </div>
         <div className="absolute inset-0 z-[1] bg-gradient-to-b from-obsidian-900/50 via-obsidian-900/30 to-obsidian-900 pointer-events-none" />
         <div className="absolute inset-0 z-[1] bg-gradient-to-r from-obsidian-900/60 via-transparent to-obsidian-900/60 pointer-events-none" />
 

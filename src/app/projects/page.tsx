@@ -10,11 +10,6 @@ import { GlowCard } from '@/components/ui/GlowCard';
 import { SkillBadge } from '@/components/ui/SkillBadge';
 import type { Project } from '@/config/projects';
 
-const ProjectsScene = dynamic(
-  () => import('@/components/three/scenes/ProjectsScene').then((m) => m.ProjectsScene),
-  { ssr: false, loading: () => null }
-);
-
 const FILTERS = [
   { id: 'all', label: 'All' },
   { id: 'cv', label: 'Computer Vision' },
@@ -59,7 +54,6 @@ export default function ProjectsPage() {
   return (
     <div className="relative min-h-screen bg-obsidian-900">
       <section className="relative min-h-[60vh] flex items-end pb-20 overflow-hidden pt-24">
-        <ProjectsScene />
         <div className="absolute inset-0 bg-gradient-to-b from-obsidian-900/60 via-transparent to-obsidian-900" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
           <div className="inline-flex items-center gap-3 mb-6">

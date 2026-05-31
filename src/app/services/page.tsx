@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { ServicesScene } from '@/components/three/ServicesScene';
 import { ServicesClient } from './ServicesClient';
 
 export const metadata: Metadata = {
@@ -13,9 +12,6 @@ export default function ServicesPage() {
     <main className="bg-obsidian-900 min-h-screen">
       {/* ─── Hero ─────────────────────────────────────────────────── */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden pt-24">
-        <div className="absolute inset-0 z-0">
-          <ServicesScene />
-        </div>
         <div className="absolute inset-0 z-[1] bg-gradient-to-b from-obsidian-900/50 via-obsidian-900/30 to-obsidian-900 pointer-events-none" />
         <div className="absolute inset-0 z-[1] bg-gradient-to-r from-obsidian-900/60 via-transparent to-obsidian-900/60 pointer-events-none" />
 
