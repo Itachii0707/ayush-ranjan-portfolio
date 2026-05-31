@@ -3,10 +3,10 @@
 @import "tailwindcss";
 
 :root {
-  --bg-obsidian-900: #030305;
-  --bg-obsidian-800: #07070F;
-  --bg-obsidian-700: #0D0D1A;
-  --bg-obsidian-600: #111122;
+  --bg-obsidian-900: #110720;
+  --bg-obsidian-800: #180D2F;
+  --bg-obsidian-700: #22143F;
+  --bg-obsidian-600: #2B1D4B;
 
   --bg-graphite-500: #1A1A2E;
   --bg-graphite-400: #252538;
@@ -27,10 +27,10 @@
   --text-silver-mid: #A0A0B8;
   --text-silver-dim: #606080;
 
-  --border-color: rgba(255, 255, 255, 0.06);
-  --glass-bg: rgba(7, 7, 15, 0.45);
-  --header-glass-bg: rgba(3, 3, 5, 0.9);
-  --glass-border: rgba(255, 255, 255, 0.06);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(27, 13, 50, 0.45);
+  --header-glass-bg: rgba(17, 7, 32, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.08);
 }
 
 .light {
@@ -99,8 +99,9 @@
   --color-silver-dim: var(--text-silver-dim);
 
   /* Fonts */
-  --font-grotesk: var(--font-space-grotesk), sans-serif;
-  --font-inter: var(--font-inter-var), sans-serif;
+  --font-grotesk: var(--font-poppins), sans-serif;
+  --font-inter: var(--font-poppins), sans-serif;
+  --font-sans: var(--font-poppins), sans-serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
 
   /* Border radius */
@@ -214,7 +215,9 @@
   }
 
   .glass-header {
-    background: var(--bg-obsidian-900) !important;
+    background: var(--header-glass-bg) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
     border-bottom: 1px solid var(--glass-border) !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
   }
@@ -390,6 +393,10 @@
   }
   .shadow-glow-violet {
     box-shadow: 0 0 20px rgba(124,58,237,0.4), 0 0 60px rgba(124,58,237,0.15);
+  }
+
+  .portrait-glow {
+    filter: drop-shadow(0px 0px 10px rgba(168, 85, 247, 0.7)) drop-shadow(0px 0px 25px rgba(168, 85, 247, 0.35));
   }
 }
 

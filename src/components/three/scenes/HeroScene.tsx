@@ -141,7 +141,24 @@ function Scene() {
   );
 }
 
+import { useState, useEffect } from 'react';
+
 export function HeroScene() {
+  const [isInView, setIsInView] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // If we scroll past the first fold (100vh), unmount the WebGL canvas to free up GPU resources
+      setIsInView(window.scrollY < window.innerHeight + 100);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // initial check
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  if (!isInView) return null;
+
   return (
     <CanvasWrapper
       className="fixed inset-0"

@@ -38,8 +38,8 @@ export function GlowCard({ children, className, glowColor = 'cyan', onClick }: G
   };
 
   const glowBorder = glowColor === 'cyan'
-    ? 'hover:border-cyan-DEFAULT/40 hover:shadow-[0_0_30px_rgba(0,229,255,0.15)]'
-    : 'hover:border-violet-glow/40 hover:shadow-[0_0_30px_rgba(124,58,237,0.15)]';
+    ? 'hover:border-cyan-DEFAULT/40 hover:shadow-[0_0_30px_rgba(0,229,255,0.15)] border-white/6 bg-glass-bg'
+    : 'border-t-3 border-t-purple-600 border-x-white/5 border-b-white/5 hover:shadow-[0_10px_35px_rgba(124,58,237,0.25)] bg-gradient-to-r from-[#080210]/95 via-[#230b42]/85 to-[#080210]/95';
 
   return (
     <motion.div
@@ -56,7 +56,7 @@ export function GlowCard({ children, className, glowColor = 'cyan', onClick }: G
       whileHover={{ scale: 1.015 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       className={cn(
-        'relative glass rounded-2xl border border-white/6 transition-colors duration-300 cursor-default overflow-hidden',
+        'relative rounded-2xl transition-all duration-300 cursor-default overflow-hidden backdrop-blur-md',
         glowBorder,
         className
       )}
